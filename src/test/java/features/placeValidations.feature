@@ -10,3 +10,4 @@ Feature: Validating Place API's
     Examples:
       | name    | language | address            |
       | AAhouse | English  | World cross center |
+      | BBhouse | Arabic   | See cross center   |
