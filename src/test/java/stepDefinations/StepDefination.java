@@ -25,9 +25,9 @@ public class StepDefination extends Utils {
     Response response;
 
     TestDataBuild data = new TestDataBuild();
-    @Given("Add Place Payload")
-    public void add_place_payload() throws IOException {
-        resp = given().spec(requestSpecification()).body(data.addPlacePayload());
+    @Given("Add Place Payload with {string} {string} {string}")
+    public void add_place_payload_with(String name, String language, String address) throws IOException {
+        resp = given().spec(requestSpecification()).body(data.addPlacePayload(name, language, address));
     }
 
     @When("user calls {string} with Post http request")
