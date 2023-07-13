@@ -8,36 +8,24 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import pojo.AddPlace;
-import pojo.Location;
-import pojo.Types;
+import resources.TestDataBuild;
+import resources.Utils;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.*;
 
 
-public class StepDefination {
+public class StepDefination extends Utils {
     RequestSpecification resp;
     ResponseSpecification resSpec;
     Response response;
+
+    TestDataBuild data = new TestDataBuild();
     @Given("Add Place Payload")
     public void add_place_payload() {
-        List<String> myList = new ArrayList<>();
-        myList.add("shoe park");
-        myList.add("shop");
-        Types types = new Types(myList);
-        Location location = new Location(-38.383494, 33.427362);
-        AddPlace p = new AddPlace(50, "Frontline house", "(+91) 983 893 3937", "29, side layout, cohen 09", "https://rahulshettyacademy.com", "French-IN", location, types);
-
-
-        RequestSpecification reqSpec = new RequestSpecBuilder().setBaseUri("https://rahulshettyacademy.com").addQueryParam("key", "qaclick123")
-                                       .setContentType(ContentType.JSON).build();
         resSpec = new ResponseSpecBuilder().expectStatusCode(200).expectContentType(ContentType.JSON).build();
-        resp = given().spec(reqSpec).body(p);
-
+        resp = given().spec(requestSpecification()).body(data.addPlacePayload());
     }
 
     @When("user calls {string} with Post http request")
