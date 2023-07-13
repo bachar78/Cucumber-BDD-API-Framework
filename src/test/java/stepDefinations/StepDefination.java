@@ -12,25 +12,27 @@ import resources.TestDataBuild;
 import resources.Utils;
 
 
+import java.io.FileNotFoundException;
+
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.*;
 
 
 public class StepDefination extends Utils {
     RequestSpecification resp;
-    ResponseSpecification resSpec;
+    ResponseSpecification resspec;
     Response response;
 
     TestDataBuild data = new TestDataBuild();
     @Given("Add Place Payload")
-    public void add_place_payload() {
-        resSpec = new ResponseSpecBuilder().expectStatusCode(200).expectContentType(ContentType.JSON).build();
+    public void add_place_payload() throws FileNotFoundException {
         resp = given().spec(requestSpecification()).body(data.addPlacePayload());
     }
 
     @When("user calls {string} with Post http request")
     public void user_calls_with_post_http_request(String string) {
-        response = resp.when().post("maps/api/place/add/json").then().spec(resSpec).extract().response();
+        resspec = new ResponseSpecBuilder().expectStatusCode(200).expectContentType(ContentType.JSON).build();
+        response = resp.when().post("maps/api/place/add/json").then().spec(resspec).extract().response();
     }
     @Then("the API call is success with status code {int}")
     public void the_api_call_is_success_with_status_code(Integer int1) {
