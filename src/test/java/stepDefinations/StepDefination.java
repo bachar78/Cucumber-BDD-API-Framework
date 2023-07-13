@@ -8,6 +8,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
+import resources.APIResources;
 import resources.TestDataBuild;
 import resources.Utils;
 
@@ -31,9 +32,10 @@ public class StepDefination extends Utils {
     }
 
     @When("user calls {string} with Post http request")
-    public void user_calls_with_post_http_request(String string) {
+    public void user_calls_with_post_http_request(String resource) {
+        APIResources resourceAPI = APIResources.valueOf(resource);
         resspec = new ResponseSpecBuilder().expectStatusCode(200).expectContentType(ContentType.JSON).build();
-        response = resp.when().post("maps/api/place/add/json").then().spec(resspec).extract().response();
+        response = resp.when().post(resourceAPI.getResource()).then().spec(resspec).extract().response();
     }
     @Then("the API call is success with status code {int}")
     public void the_api_call_is_success_with_status_code(Integer int1) {
