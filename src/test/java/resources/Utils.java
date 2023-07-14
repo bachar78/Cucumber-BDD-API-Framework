@@ -38,6 +38,5 @@ public class Utils {
         String resp = response.asString();
         JsonPath js = new JsonPath(resp);
         return js.get(key).toString();
-
     }
 }

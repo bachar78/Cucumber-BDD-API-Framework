@@ -1,4 +1,5 @@
 package stepDefinations;
+import groovy.json.JsonOutput;
 import io.cucumber.java.en.*;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
@@ -10,8 +11,6 @@ import resources.APIResources;
 import resources.TestDataBuild;
 import resources.Utils;
 
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static io.restassured.RestAssured.given;
@@ -22,7 +21,7 @@ public class StepDefination extends Utils {
     RequestSpecification resp;
     ResponseSpecification resspec;
     Response response;
-    String place_id;
+    static String place_id;
     JsonPath js;
     TestDataBuild data = new TestDataBuild();
 
@@ -42,7 +41,6 @@ public class StepDefination extends Utils {
             response = resp.when().get(resourceAPI.getResource());
         else if (method.equalsIgnoreCase("DELETE"))
             response = resp.when().delete(resourceAPI.getResource());
-        response.then().spec(resspec).extract().response();
     }
 
     @Then("the API call is success with status code {int}")
@@ -63,5 +61,9 @@ public class StepDefination extends Utils {
         user_calls_with_http_request(resource, "GET");
         String getName = getJsonPath(response, "name");
         assertEquals(name, getName);
+    }
+    @Given("DeletePlace Payload")
+    public void delete_place_payload() throws IOException {
+        resp = given().spec(requestSpecification()).body(data.deletePlacePayload(place_id));
     }
 }

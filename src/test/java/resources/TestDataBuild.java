@@ -17,4 +17,8 @@ public class TestDataBuild {
         AddPlace p = new AddPlace(50, name, "(+91) 983 893 3937", address, "https://rahulshettyacademy.com", language, location, types);
         return p;
     }
+
+    public String deletePlacePayload(String place_id) {
+       return  "{\r\n    \"place_id\":\""+ place_id +"\"\r\n}";
+    }
 }
