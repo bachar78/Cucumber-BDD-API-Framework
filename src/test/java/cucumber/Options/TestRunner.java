@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
         features = {"src/test/java/features/placeValidations.feature"},
         plugin = "json:target/jsonReports/cucumber-report.json",
         glue = "stepDefinations"
-//        ,tags = "@DeletePlace"
+        ,tags = "@DeletePlace"
 )
 public class TestRunner {
 }
